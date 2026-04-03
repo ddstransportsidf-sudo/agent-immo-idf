@@ -1,0 +1,25 @@
+name: Agent Immo IDF
+
+on:
+  schedule:
+    # 8h05 heure Paris (ete UTC+2 = 6h05 UTC)
+    - cron: '5 6 * * *'
+    # 20h05 heure Paris (ete UTC+2 = 18h05 UTC)
+    - cron: '5 18 * * *'
+  workflow_dispatch:
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run agent immo
+        run: python search_immo.py
